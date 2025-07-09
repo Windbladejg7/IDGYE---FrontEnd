@@ -45,6 +45,9 @@ function renderTree(node, parent) {
     const a = document.createElement("li");
     a.textContent = node.name;
     a.classList.add(node.type);
+
+    a.addEventListener("contextmenu", (e)=>contextMenuListener(e, "<li>Cambiar nombre...</li>"));
+
     parent.appendChild(a);
     a.addEventListener("click", () => {
       editor.setValue(node.content);
@@ -61,8 +64,8 @@ function renderTree(node, parent) {
     const inner = document.createElement("div");
     inner.textContent = node.name;
     inner.classList.add(node.type);
-
-    inner.addEventListener("contextmenu", (e) => contextMenuListener(e));
+    
+    inner.addEventListener("contextmenu", (e) => contextMenuListener(e, "<li>Nuevo archivo...</li>"));
     element.appendChild(inner);
     parent.appendChild(element)
 
@@ -81,12 +84,12 @@ function renderTree(node, parent) {
   }
 }
 
-function contextMenuListener(e) {
+function contextMenuListener(e, html) {
   e.preventDefault();
+  menuFlotante.innerHTML = html;
   menuFlotante.style.display = "flex";
   menuFlotante.style.left = e.clientX + "px";
   menuFlotante.style.top = e.clientY + "px";
-
 }
 
 renderTree(treeDirectory, explorer);

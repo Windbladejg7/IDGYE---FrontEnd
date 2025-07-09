@@ -1,58 +1,97 @@
-*{
-  padding: 0;
+/* Reset básico */
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-main{
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
-#explorer{
-  width: 20%;
+html, body {
   height: 100%;
+  font-family: sans-serif;
+}
+
+main {
+  display: flex;
+  height: 100vh;
+}
+
+/* Explorador (lado izquierdo) */
+#explorer {
+  width: 250px;
+  background-color: #1e1e1e;
+  color: #ddd;
+  padding: 10px;
+  overflow-y: auto;
+  border-right: 1px solid #333;
+}
+
+#codingArea {
+  flex: 1;
   display: flex;
   flex-direction: column;
-}
-
-#editor{
-  width: 100%;
-  height: 90vh;
-}
-
-#topBar{
-  width: 100%;
-  height: 10vh;
-}
-
-#codingArea{
-  display: flex;
-  flex-flow:column wrap;
-  width: 80%;
   height: 100%;
 }
 
-.file{
+/* Barra superior dentro del área de código */
+#topBar {
+  height: 40px;            /* Ajusta según lo que vayas a poner */
+  background-color: #252526;
+  border-bottom: 1px solid #3c3c3c;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  font-size: 14px;
+}
+
+/* Editor ocupa todo el espacio restante */
+#editor {
+  flex: 1;
+}
+
+/* Carpetas y archivos */
+.folder, .file {
+  padding: 4px 10px;
   cursor: pointer;
 }
 
-.oculto{
-  display:none;
+.folder:hover,
+.file:hover {
+  background-color: #2a2d2e;
 }
 
-.menuBurbuja{
-  background-color:aquamarine;
-  flex-direction:column;
+.folder {
+  font-weight: bold;
+}
+
+ul {
   list-style: none;
-  border: 1px solid black;
+  margin-left: 15px;
 }
 
-.menuBurbuja li{
-  background-color: green;
-  font-size: small;
+/* Ocultar subarchivos al hacer clic en carpeta */
+.oculto {
+  display: none;
+}
+
+/* Menú flotante estilo burbuja */
+.menuBurbuja {
+  position: fixed;
+  background-color: #2d2d2d;
   color: white;
-  padding: 5px;
+  border-radius: 5px;
+  padding: 5px 0;
+  list-style: none;
+  min-width: 150px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  z-index: 1000;
+}
+
+.menuBurbuja li {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.menuBurbuja li:hover {
+  background-color: #3c3c3c;
 }
