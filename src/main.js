@@ -1,7 +1,17 @@
 import * as monaco from "monaco-editor";
+import { run } from "./handlers.js";
 
 const explorer = document.getElementById("explorer");
 const menuFlotante = document.getElementById("menuFlotante");
+const runCode = document.getElementById("btnEjecutar");
+
+const editor = monaco.editor.create(document.getElementById("editor"), {
+  language: "javascript",
+  theme: "vs-dark",
+});
+
+editor.setValue(`console.log("Hello, World!");`);
+runCode.addEventListener("click", ()=>run(editor.getValue()));
 
 const treeDirectory = {
   name: "root",
@@ -32,13 +42,6 @@ const treeDirectory = {
     }
   ]
 }
-
-const editor = monaco.editor.create(document.getElementById("editor"), {
-  language: "javascript",
-  theme: "vs-dark",
-});
-
-editor.setValue(`console.log("Hello, World!");`);
 
 function renderTree(node, parent) {
   if (node.type === "file") {
