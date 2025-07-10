@@ -32,6 +32,22 @@ main {
   height: 100%;
 }
 
+#editor {
+  flex: 1;
+  min-height: 0; /* Necesario para evitar que flex colapse */
+}
+
+/* Consola debajo del editor */
+#console {
+  height: 150px; /* Ajustable */
+  background-color: #1e1e1e;
+  color: #0f0;
+  font-family: monospace;
+  overflow-y: auto;
+  padding: 8px 12px;
+  border-top: 1px solid #333;
+}
+
 /* Barra superior dentro del área de código */
 #topBar {
   height: 40px;            /* Ajusta según lo que vayas a poner */
@@ -42,11 +58,6 @@ main {
   align-items: center;
   padding: 0 10px;
   font-size: 14px;
-}
-
-/* Editor ocupa todo el espacio restante */
-#editor {
-  flex: 1;
 }
 
 /* Carpetas y archivos */

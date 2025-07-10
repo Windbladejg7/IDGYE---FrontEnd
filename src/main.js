@@ -4,6 +4,7 @@ import { run } from "./handlers.js";
 const explorer = document.getElementById("explorer");
 const menuFlotante = document.getElementById("menuFlotante");
 const runCode = document.getElementById("btnEjecutar");
+const console = document.getElementById("console");
 
 const editor = monaco.editor.create(document.getElementById("editor"), {
   language: "javascript",
@@ -11,7 +12,10 @@ const editor = monaco.editor.create(document.getElementById("editor"), {
 });
 
 editor.setValue(`console.log("Hello, World!");`);
-runCode.addEventListener("click", ()=>run(editor.getValue()));
+runCode.addEventListener("click", async()=>{
+  const result = await run(editor.getValue());
+  console.textContent = result.stdout;
+});
 
 const treeDirectory = {
   name: "root",
