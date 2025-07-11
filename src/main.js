@@ -4,7 +4,7 @@ import { run } from "./handlers.js";
 const explorer = document.getElementById("explorer");
 const menuFlotante = document.getElementById("menuFlotante");
 const runCode = document.getElementById("btnEjecutar");
-const console = document.getElementById("console");
+const consola = document.getElementById("console");
 
 const editor = monaco.editor.create(document.getElementById("editor"), {
   language: "javascript",
@@ -14,38 +14,8 @@ const editor = monaco.editor.create(document.getElementById("editor"), {
 editor.setValue(`console.log("Hello, World!");`);
 runCode.addEventListener("click", async()=>{
   const result = await run(editor.getValue());
-  console.textContent = result.stdout;
+  consola.textContent = result.stdout;
 });
-
-const treeDirectory = {
-  name: "root",
-  type: "folder",
-  children: [
-    {
-      name: "emptyfile.js",
-      type: "file",
-      content: "console.log('Hola Mundo')"
-    },
-
-    {
-      name: "other.js",
-      type: "file",
-      content: "let value = 1"
-    },
-
-    {
-      name: "proyecto1",
-      type: "folder",
-      children: [
-        {
-          name: "archivo.py",
-          type: "file",
-          content: "print('Hello')"
-        }
-      ]
-    }
-  ]
-}
 
 function renderTree(node, parent) {
   if (node.type === "file") {
@@ -99,4 +69,11 @@ function contextMenuListener(e, html) {
   menuFlotante.style.top = e.clientY + "px";
 }
 
-renderTree(treeDirectory, explorer);
+async function obtenerTree(){
+  const response = await fetch("http://localhost:3000/api/entregas/7/1");
+  const datos = await response.json();
+  const treeDirectory = datos[0].arbol_archivos;
+  renderTree(treeDirectory, explorer);
+}
+
+obtenerTree();
