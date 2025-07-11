@@ -1,30 +1,18 @@
 <!doctype html>
-<html lang="en">
-
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <link rel="stylesheet" href="src/style.css" />
+  <link rel="stylesheet" href="/src/style.css" />
   <title>IDGYE</title>
 </head>
-
 <body>
-  <main>
-    <nav id="explorer">
-    </nav>
+  <nav>
+    <a href="/" data-link>Login</a>
+    <a href="/editor" data-link>Editor</a>
+  </nav>
 
-    <section id="codingArea">
-      <nav id="topBar">
-        <button id="btnEjecutar">Run</button>
-      </nav>
-      <div id="editor">
-      </div>
-      <div id="console"></div>
-    </section>
-  </main>
-  <ul class="menuBurbuja" id="menuFlotante" style="display: none; position: fixed; z-index: 1000;">
-    <li>Nuevo archivo...</li>
-  </ul>
+  <div id="app"></div>
+
   <script type="module" src="/src/main.js"></script>
 </body>
-
 </html>
