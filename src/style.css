@@ -28,8 +28,8 @@ body {
   border-radius: 8px 8px 0 0;
   user-select: none;
   overflow: hidden;
-  white-space: nowrap;
   opacity: 0.5;
+  white-space: nowrap;
 }
 
 main {
@@ -206,7 +206,6 @@ main {
 #headerEditor {
   height: 45px;
   background-color: white;
-  /* Azul vibrante */
   color: black;
   display: flex;
   align-items: center;
@@ -220,7 +219,7 @@ html {
   height: 100%;
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(white, 90%, #c9d6e3);
+  background: linear-gradient(white, 80%, #c9d6e3);
   color: #333;
   overflow-x: hidden;
   /* Evita scroll horizontal */
@@ -277,11 +276,18 @@ main {
 #console {
   height: 150px;
   background-color: #1e1e1e;
-  color: #0f0;
   font-family: monospace;
   padding: 12px;
   overflow-y: auto;
   border-radius: 0 0 8px 8px;
+}
+
+.textoError{
+  color: red;
+}
+
+.textoCorrecto{
+  color: #0f0;
 }
 
 #containerExplorer {
@@ -424,11 +430,12 @@ ul {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
   z-index: 1100;
   position: fixed;
-  font-family: 'Poppins', sans-serif;
-  font-size: 13px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
 }
 
 .menuBurbuja li {
+  width: 100%;
   list-style: none;
   padding: 10px 16px;
   cursor: pointer;
@@ -437,4 +444,23 @@ ul {
 
 .menuBurbuja li:hover {
   background-color: #444560;
+}
+
+#nuevo{
+  display:flex;
+  flex-direction: row;
+  justify-content: end;
+}
+
+#nuevo button{
+  background-color: #1e1e1e;
+  border:none;
+  color: white;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  padding: 8px 20px;
+}
+
+#nuevo button:hover{
+  background-color: #33354a;
 }

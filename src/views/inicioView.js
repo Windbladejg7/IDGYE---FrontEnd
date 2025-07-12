@@ -1,7 +1,7 @@
-export default async function renderInicio() {
-    const app = document.getElementById("app");
+import renderEditorView from "./editorView";
 
-    app.innerHTML = `
+function devolverHTML(){
+    return `
     <nav id="pruebasHeader">
         <h1>Pruebas</h1>
     </nav>
@@ -16,7 +16,15 @@ export default async function renderInicio() {
         </div>
     </div>
   `;
+}
+
+export default async function renderInicio() {
+    const app = document.getElementById("app");
+    app.innerHTML = devolverHTML();
+
     await cargarPruebas(await obtenerPruebas());
+
+    //Filtrar pruebas
     document.getElementById("filtroEstado").addEventListener("change", async (e) => {
         const estado = e.target.value;
         let pruebas;
@@ -95,6 +103,7 @@ async function cargarPruebas(pruebas) {
                 btn.textContent = "Ver entrega";
                 pruebaBox.classList.add("entregada");
             }
+            btn.addEventListener("click", ()=>renderEditorView(prueba));
 
             btnBox.appendChild(btn);
             pruebaBox.appendChild(btnBox);

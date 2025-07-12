@@ -2,8 +2,9 @@ import * as monaco from "monaco-editor";
 import { run } from "../handlers.js";
 import themeData from "monaco-themes/themes/Dracula.json";
 
-export default async function renderEditorView() {
+export default async function renderEditorView(prueba) {
   const app = document.getElementById("app");
+  const arbol = await obtenerTree();
   app.innerHTML = `
   <nav id="headerEditor">
   <button id="btnEjecutar"><i class="fa-solid fa-play"></i></button>
@@ -11,8 +12,8 @@ export default async function renderEditorView() {
     <main>
       <section id="containerExplorer">
       <ul id="leftMenu">
-      <li id="tabDescripcion">Descripción</li>
       <li id="tabArchivos">Archivos</li>
+      <li id="tabDescripcion">Descripción</li>
       </ul>
       <nav id="explorer"></nav>
       </section>
@@ -45,11 +46,22 @@ export default async function renderEditorView() {
 
   editor.setValue(`console.log("Hello, World!");`);
 
+  //TODO: Botón ejecutar
   runCode.addEventListener("click", async () => {
     const result = await run(editor.getValue());
-    consola.textContent = result.stdout;
+    consola.classList = [];
+    if(!result.stderr){
+      consola.classList.add("textoCorrecto");
+      return consola.textContent = result.stdout;
+    }
+    consola.classList.add("textoError");
+    consola.textContent = result.stderr;
   });
 
+  //Cargar explorador de archivos
+  cargarArchivos(arbol);
+
+  //Generar arbol a partir de una entrega
   function renderTree(node, parent) {
     if (node.type === "file") {
       const a = document.createElement("li");
@@ -88,6 +100,16 @@ export default async function renderEditorView() {
         menuFlotante.classList.add("menuBurbuja");
         menuFlotante.innerHTML = "";
         const opt = document.createElement("li");
+        opt.addEventListener("click", ()=>{
+          console.log(arbol.children);
+          node.children.push({
+            name:"Nuevo.txt",
+            type:"file",
+            content:""
+          });
+          cargarArchivos(arbol);
+          console.log(node.children);
+        });
         opt.textContent = "Nuevo archivo..."
         menuFlotante.appendChild(opt);
       });
@@ -106,13 +128,67 @@ export default async function renderEditorView() {
     }
   }
 
-  const response = await fetch("http://localhost:3000/api/entregas/7", {
-    headers: {
-      "Authorization": localStorage.getItem("token")
-    }
+  //TODO: Pestaña archivos
+  tabArchivos.addEventListener("click", async () => {
+    explorer.innerHTML = "";
+    cargarArchivos(arbol);
   });
 
-  const datos = await response.json();
-  const treeDirectory = datos.arbol_archivos;
-  renderTree(treeDirectory, explorer);
+  //Pestaña descripcion
+  tabDescripcion.addEventListener("click", async () => {
+    console.log(prueba.id_prueba);
+    const response = await fetch(`http://localhost:3000/api/pruebas/prueba/${prueba.id_prueba}`);
+    const result = await response.json();
+    explorer.innerHTML = "";
+    explorer.textContent = result.descripcion;
+  });
+
+  //Carga el menu lateral agregando el boton nuevo
+  function cargarArchivos(treeDirectory) {
+    explorer.innerHTML = "";
+    const nuevo = document.createElement("div");
+    nuevo.id = "nuevo";
+    const btnNuevo = document.createElement("button");
+    btnNuevo.id = "btnNuevo"
+    btnNuevo.innerHTML = `<i class="fa-solid fa-plus"></i> Nuevo`;
+
+    //TODO: Hay acoplamiento con el obtenerTree
+    btnNuevo.addEventListener("click", async () => {
+
+      const treeDirectory = arbol;
+
+      console.log(treeDirectory);
+      treeDirectory["children"].push({
+        name: "Nuevo.txt",
+        type: "file",
+        content: ""
+      });
+      cargarArchivos(treeDirectory);
+    });
+
+    nuevo.appendChild(btnNuevo);
+    explorer.prepend(nuevo);
+    const archivos = document.createElement("div");
+    explorer.appendChild(archivos);
+    renderTree(treeDirectory, archivos);
+  }
+
+  async function obtenerTree() {
+    if (prueba.estado === "Pendiente") {
+      return {
+        name: "Proyecto",
+        type: "folder",
+        children: []
+      }
+    } else {
+      const response = await fetch(`http://localhost:3000/api/entregas/${prueba.id_prueba}`, {
+        headers: {
+          "Authorization": localStorage.getItem("token")
+        }
+      });
+
+      const datos = await response.json();
+      return datos.arbol_archivos;
+    }
+  }
 }

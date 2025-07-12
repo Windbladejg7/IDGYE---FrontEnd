@@ -7,7 +7,6 @@ export async function router(pathname) {
 
   const routes = {
     "/": renderLoginView,
-    "/editor": renderEditorView,
     "/home": renderInicio
   };
 
