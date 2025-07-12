@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code&family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+
+/* Reset básico */
 /* Reset básico */
 * {
   margin: 0;
@@ -5,9 +9,27 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   height: 100%;
-  font-family: sans-serif;
+  background-color: #f9f9f9;
+  color: #212529;
+}
+
+#tabs {
+  height: 50px;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  border-radius: 8px 8px 0 0;
+  user-select: none;
+  overflow: hidden;
+  white-space: nowrap;
+  opacity: 0.5;
 }
 
 main {
@@ -15,94 +37,404 @@ main {
   height: 100vh;
 }
 
-/* Explorador (lado izquierdo) */
-#explorer {
-  width: 250px;
-  background-color: #1e1e1e;
-  color: #ddd;
-  padding: 10px;
-  overflow-y: auto;
-  border-right: 1px solid #333;
+/*CSS DEL HOME*/
+#outer {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
 }
 
+#inner {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  gap: 2rem;
+}
+
+#pruebasContainer {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+#filtroEstado {
+  flex: 1;
+  background-color: #f4f4f4;
+  border-left: 1px solid #ccc;
+  padding: 1rem;
+}
+
+.grupoPrueba>h2 {
+  margin-bottom: 0.5rem;
+  color: #555;
+  border-bottom: 1px solid #ccc;
+}
+
+.prueba-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  transition: box-shadow 0.2s ease;
+}
+
+.prueba-box:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.info-prueba p {
+  margin: 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Botones */
+.botones-prueba button {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #4f46e5;
+  color: white;
+  transition: background-color 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+.botones-prueba button:hover {
+  background-color: #4338ca;
+}
+
+/* Pruebas */
+.info-prueba p {
+  margin: 0;
+  font-size: 1rem;
+  color: #333;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+}
+
+.hora-prueba {
+  margin-right: 1rem;
+  color: #666;
+  font-weight: normal;
+  font-size: 0.9rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Header */
+#pruebasHeader {
+  background-color: #222;
+  color: white;
+  padding: 1rem 2rem;
+  font-size: 1.5rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.pendiente {
+  border-left: 5px solid #f39c12;
+}
+
+.entregada {
+  border-left: 5px solid #27ae60;
+}
+
+#login {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #4f46e5, #3b82f6);
+  color: white;
+  font-family: 'Poppins', sans-serif;
+}
+
+#login h1 {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+#formLogin {
+  background-color: white;
+  color: #333;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+#formLogin input {
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+  outline: none;
+  transition: border 0.2s;
+}
+
+#formLogin input:focus {
+  border-color: #4f46e5;
+}
+
+#formLogin button {
+  padding: 0.75rem 1rem;
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#formLogin button:hover {
+  background-color: #4338ca;
+}
+
+#headerEditor {
+  height: 45px;
+  background-color: white;
+  /* Azul vibrante */
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/*CSS DEL EDITOR*/
+/* Fondo general */
+body,
+html {
+  height: 100%;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(white, 90%, #c9d6e3);
+  color: #333;
+  overflow-x: hidden;
+  /* Evita scroll horizontal */
+}
+
+/* Contenedor principal que no pase límites */
+main {
+  display: flex;
+  height: 100vh;
+  max-width: 100vw;
+  overflow: hidden;
+}
+
+/* Barra superior */
+#topBar {
+  height: 45px;
+  background-color: #292b2f;
+  border-bottom: 1px solid #444;
+  color: #ddd;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  user-select: none;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+/* Ajustar contenedor de editor y consola */
 #codingArea {
   flex: 1;
   display: flex;
   flex-direction: column;
   height: 100%;
+  max-width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  /* para que editor y consola no se salgan */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background: white;
+  margin: 10px;
 }
 
+/* Editor */
 #editor {
-  flex: 1;
-  min-height: 0; /* Necesario para evitar que flex colapse */
+  flex-grow: 1;
+  min-height: 0;
+  /* importante para flex */
+  border-radius: 0 0 0 0;
 }
 
-/* Consola debajo del editor */
+/* Consola */
 #console {
-  height: 150px; /* Ajustable */
+  height: 150px;
   background-color: #1e1e1e;
   color: #0f0;
   font-family: monospace;
+  padding: 12px;
   overflow-y: auto;
-  padding: 8px 12px;
-  border-top: 1px solid #333;
+  border-radius: 0 0 8px 8px;
 }
 
-/* Barra superior dentro del área de código */
-#topBar {
-  height: 40px;            /* Ajusta según lo que vayas a poner */
-  background-color: #252526;
-  border-bottom: 1px solid #3c3c3c;
-  color: white;
+#containerExplorer {
   display: flex;
+  flex-direction: row;
+  width: 300px;
+  background-color: transparent;
+  margin: 10px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* Menú vertical tipo separador */
+#leftMenu {
+  justify-content: end;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  display: flex;
+  flex-direction: row;
+  background-color: #1e1e1e;
+  border-right: 1px solid #2f2f2f;
+}
+
+#leftMenu li {
+  clip-path: polygon(0% 100%, 0% 0%, 100% 10%, 100% 100%);
+  display: flex;
+  justify-content: center;
   align-items: center;
-  padding: 0 10px;
-  font-size: 14px;
+  padding: 1rem 0.6rem;
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+  font-size: 13px;
+  color: #bbb;
+  background-color: #2a2a2a;
+  border-top: 1px solid #3a3a3a;
+  border-bottom: 1px solid #1a1a1a;
+  box-shadow: inset -1px 0 0 #111; /* borde entre separadores */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#leftMenu li:hover {
+  background-color: #3a3a3a;
+  color: white;
+}
+
+#leftMenu li.active {
+  background-color: #f4f4f4;
+  color: #222;
+  font-weight: bold;
+  box-shadow: none;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ccc;
+}
+
+/* Panel de contenido */
+#explorer {
+  background-color: #1e1e1e;
+  color: #eee;
+  padding: 1rem;
+  font-size: 13px;
+  font-family: "JetBrains Mono", monospace;
+  width: 100%;
+  overflow-y: auto;
+  border-left: 1px solid #2f2f2f;
+}
+
+/* Botón Run */
+#btnEjecutar {
+  background-color: white;
+  border: none;
+  color: black;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#btnEnviar {
+  background-color: #e73370;
+  margin-left: 5px;
+  border: none;
+  color: white;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-family: "Poppins";
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#btnEjecutar:hover {
+  background-color: #f5f3f3e8;
 }
 
 /* Carpetas y archivos */
-.folder, .file {
-  padding: 4px 10px;
+.folder,
+.file {
+  padding: 6px 12px;
+  font-size: 11px;
+  border-radius: 6px;
   cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.file {
+  margin-left: 3px;
 }
 
 .folder:hover,
 .file:hover {
-  background-color: #2a2d2e;
+  background-color: #33354a;
 }
 
+/* Carpetas en negrita */
 .folder {
-  font-weight: bold;
+  font-weight: 700;
+  color: #9cdcfe;
 }
 
 ul {
   list-style: none;
-  margin-left: 15px;
 }
 
-/* Ocultar subarchivos al hacer clic en carpeta */
+/* Ocultar subcarpetas/archivos */
 .oculto {
   display: none;
 }
 
-/* Menú flotante estilo burbuja */
+/* Menú contextual burbuja */
 .menuBurbuja {
-  position: fixed;
-  background-color: #2d2d2d;
-  color: white;
-  border-radius: 5px;
-  padding: 5px 0;
+  background-color: #2f2f3f;
+  color: #eee;
+  border-radius: 8px;
+  padding: 8px 0;
   list-style: none;
-  min-width: 150px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-  z-index: 1000;
+  min-width: 180px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  z-index: 1100;
+  position: fixed;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
 }
 
 .menuBurbuja li {
-  padding: 8px 12px;
+  list-style: none;
+  padding: 10px 16px;
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
 .menuBurbuja li:hover {
-  background-color: #3c3c3c;
+  background-color: #444560;
 }
