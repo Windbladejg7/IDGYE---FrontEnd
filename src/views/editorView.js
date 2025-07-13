@@ -8,7 +8,7 @@ export default async function renderEditorView(prueba) {
   app.innerHTML = `
   <nav id="headerEditor">
   <button id="btnEjecutar"><i class="fa-solid fa-play"></i></button>
-  <button id="btnEnviar">Enviar</button></nav>
+  <button id="btnEnviar" class="btnBloqueado">Enviar</button></nav>
     <main>
       <section id="containerExplorer">
       <ul id="leftMenu">
@@ -34,6 +34,13 @@ export default async function renderEditorView(prueba) {
   const consola = document.getElementById("console");
   const tabDescripcion = document.getElementById("tabDescripcion");
   const tabArchivos = document.getElementById("tabArchivos");
+  const btnEnviar = document.getElementById("btnEnviar");
+
+  if(prueba.estado === "Entregada"){
+    btnEnviar.style.display = "none";
+  }
+
+  let actual;
 
   monaco.editor.defineTheme("github", themeData);
   monaco.editor.setTheme("github");
@@ -44,19 +51,43 @@ export default async function renderEditorView(prueba) {
     fontFamily: "JetBrains Mono"
   });
 
-  editor.setValue(`console.log("Hello, World!");`);
+  //editor.setValue(`console.log("Hello, World!");`);
 
   //TODO: Botón ejecutar
   runCode.addEventListener("click", async () => {
-    const result = await run(editor.getValue());
+    const result = await run(editor.getValue(), obtenerLenguaje(actual.name));
     consola.classList = [];
-    if(!result.stderr){
+    if (!result.stderr) {
       consola.classList.add("textoCorrecto");
+      btnEnviar.classList.remove("btnBloqueado")
+      btnEnviar.classList.add("btnActivo");
+
+      btnEnviar.addEventListener("click", async() => {
+          await fetch(`http://localhost:3000/api/entregas`, {
+            method:"POST",
+            headers:{
+              "Content-Type":"application/json",
+              "Authorization":localStorage.getItem("token")
+            },
+            body:JSON.stringify({
+              arbol_archivos:arbol,
+              id_prueba:prueba.id_prueba,
+              id_curso:prueba.id_curso
+            })
+          })
+      });
+
       return consola.textContent = result.stdout;
     }
+    btnEnviar.classList.add("btnBloqueado");
     consola.classList.add("textoError");
     consola.textContent = result.stderr;
   });
+
+  editor.onDidChangeModelContent(() => {
+    actual.content = editor.getValue();
+  })
+
 
   //Cargar explorador de archivos
   cargarArchivos(arbol);
@@ -68,11 +99,25 @@ export default async function renderEditorView(prueba) {
       a.innerHTML = `  <i class="fa-solid fa-file-code"></i> ${node.name}`;
       a.classList.add(node.type);
       a.addEventListener("click", () => {
+        actual = node;
+        btnEnviar.classList.add("btnBloqueado");
         editor.setValue(node.content);
       });
 
       a.addEventListener("contextmenu", (e) => {
         e.preventDefault();
+        menuFlotante.style.display = "flex";
+        menuFlotante.style.left = e.clientX + "px";
+        menuFlotante.style.top = e.clientY + "px";
+        menuFlotante.classList.add("menuBurbuja");
+        menuFlotante.innerHTML = "";
+        const opt = document.createElement("li");
+        opt.textContent = "Cambiar Nombre...";
+        opt.addEventListener("click", () => {
+          let nombre = prompt("Nuevo nombre:");
+          a.innerHTML = `  <i class="fa-solid fa-file-code"></i> ${nombre}`;
+        });
+        menuFlotante.appendChild(opt);
       });
 
       parent.appendChild(a);
@@ -100,18 +145,31 @@ export default async function renderEditorView(prueba) {
         menuFlotante.classList.add("menuBurbuja");
         menuFlotante.innerHTML = "";
         const opt = document.createElement("li");
-        opt.addEventListener("click", ()=>{
-          console.log(arbol.children);
+        const opt2 = document.createElement("li");
+        opt2.textContent = "Nueva carpeta...";
+        opt.addEventListener("click", () => {
+          let nombre = prompt("Nombre del archivo:");
           node.children.push({
-            name:"Nuevo.txt",
-            type:"file",
-            content:""
+            name: nombre,
+            type: "file",
+            content: ""
           });
           cargarArchivos(arbol);
           console.log(node.children);
         });
+
+        opt2.addEventListener("click", () => {
+          let nombre = prompt("Nombre de la carpeta:");
+          node.children.push({
+            name: nombre,
+            type: "folder",
+            children: []
+          });
+          cargarArchivos(arbol);
+        });
         opt.textContent = "Nuevo archivo..."
         menuFlotante.appendChild(opt);
+        menuFlotante.appendChild(opt2);
       });
 
       if (node.children) {
@@ -158,8 +216,9 @@ export default async function renderEditorView(prueba) {
       const treeDirectory = arbol;
 
       console.log(treeDirectory);
+      let nombre = prompt("Nombre del archivo:");
       treeDirectory["children"].push({
-        name: "Nuevo.txt",
+        name: nombre,
         type: "file",
         content: ""
       });
@@ -191,4 +250,14 @@ export default async function renderEditorView(prueba) {
       return datos.arbol_archivos;
     }
   }
+}
+
+function obtenerLenguaje(nombre) {
+  const ext = nombre.split(".").pop();
+  const mapa = {
+    js: 63,
+    py: 71,
+    java: 91
+  };
+  return mapa[ext];
 }

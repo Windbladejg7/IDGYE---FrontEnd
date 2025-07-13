@@ -282,11 +282,11 @@ main {
   border-radius: 0 0 8px 8px;
 }
 
-.textoError{
+.textoError {
   color: red;
 }
 
-.textoCorrecto{
+.textoCorrecto {
   color: #0f0;
 }
 
@@ -326,7 +326,8 @@ main {
   background-color: #2a2a2a;
   border-top: 1px solid #3a3a3a;
   border-bottom: 1px solid #1a1a1a;
-  box-shadow: inset -1px 0 0 #111; /* borde entre separadores */
+  box-shadow: inset -1px 0 0 #111;
+  /* borde entre separadores */
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -369,14 +370,17 @@ main {
 }
 
 #btnEnviar {
-  background-color: #e73370;
   margin-left: 5px;
   border: none;
-  color: white;
   font-weight: 700;
   padding: 8px 16px;
   border-radius: 6px;
   font-family: "Poppins";
+}
+
+.btnActivo {
+  background-color: #e73370;
+  color: white;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
@@ -421,6 +425,7 @@ ul {
 
 /* Menú contextual burbuja */
 .menuBurbuja {
+  flex-direction: column;
   background-color: #2f2f3f;
   color: #eee;
   border-radius: 8px;
@@ -446,21 +451,27 @@ ul {
   background-color: #444560;
 }
 
-#nuevo{
-  display:flex;
+#nuevo {
+  display: flex;
   flex-direction: row;
   justify-content: end;
 }
 
-#nuevo button{
+#nuevo button {
   background-color: #1e1e1e;
-  border:none;
+  border: none;
   color: white;
   font-family: "JetBrains Mono", monospace;
   font-size: 11px;
   padding: 8px 20px;
 }
 
-#nuevo button:hover{
+#nuevo button:hover {
   background-color: #33354a;
+}
+
+.btnBloqueado {
+  cursor:not-allowed;
+  background-color:gray;
+  color: white;
 }
