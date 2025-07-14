@@ -1,5 +1,10 @@
+import renderEntregasView from "./entregasView";
+
 export default async function renderPruebasView(curso) {
     const app = document.getElementById("app");
+
+    localStorage.setItem("curso", JSON.stringify(curso));
+
     app.innerHTML = `
     <nav id="pruebasHeader">
       <h1>${curso.nombre}</h1>
@@ -15,30 +20,34 @@ export default async function renderPruebasView(curso) {
         <div class="modal-content">
             <span id="cerrarModal" class="close">x</span>
             <h2>Agregar Prueba</h2>
-            <form id="formAgregarPrueba">
+            <div id="formAgregarPrueba">
                 <label>Título</label>
-                <input type="text" name="titulo" required>
+                <input type="text" name="titulo" required id="titulo">
 
                 <label>Descripción</label>
-                <textarea name="descripcion" rows="3"></textarea>
+                <textarea name="descripcion" rows="3" id="descripcion"></textarea>
 
                 <label>Fecha máxima</label>
-                <input type="date" name="fecha_max" required>
+                <input type="date" name="fecha_max" id="fecha_max" required>
 
                 <label>Hora máxima</label>
-                <input type="time" name="hora_max" required>
+                <input type="time" name="hora_max" id="hora_max" required>
 
                 <label>Código de prueba</label>
-                <textarea name="codigo_base" rows="6" placeholder="Pegué aquí el código que se usará para probar los ejercicios "></textarea>
+                <textarea name="pruebas" id="pruebas" rows="6" placeholder="Pegué aquí el código que se usará para probar los ejercicios "></textarea>
 
-                <button type="submit">Guardar</button>
-            </form>
+                <button type="submit" id="btnEnviar">Guardar</button>
+            </div>
         </div>
     </div>
   `;
 
     const pruebas = await cargarPruebas(curso.id_curso);
     const pruebasContainer = document.getElementById("pruebasAsignadasContainer");
+    const btnEnviar = document.getElementById("btnEnviar");
+
+    btnEnviar.addEventListener("click", async () => formularioHandler(curso));
+
     pruebasContainer.innerHTML = "";
 
     const btnAgregar = document.getElementById("btnAgregarPrueba");
@@ -86,6 +95,8 @@ export default async function renderPruebasView(curso) {
             const pruebaBox = document.createElement("div");
             pruebaBox.classList.add("prueba-box");
 
+            pruebaBox.addEventListener("click", async()=>await renderEntregasView(prueba, curso.id_curso));
+
             const infoPrueba = document.createElement("div");
             infoPrueba.classList.add("info-prueba");
 
@@ -124,4 +135,35 @@ async function cargarPruebas(id_curso) {
         }
     });
     return await response.json();
+}
+
+async function formularioHandler(curso) {
+
+    const datos = {
+        titulo: document.getElementById("titulo").value,
+        descripcion: document.getElementById("descripcion").value,
+        fecha_max: document.getElementById("fecha_max").value,
+        hora_max: document.getElementById("hora_max").value + ":00",
+        curso: curso.id_curso,
+        codigo_pruebas: {pruebas: document.getElementById("pruebas").value}
+    };
+
+    const res = await fetch("http://localhost:3000/api/pruebas", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": localStorage.getItem("token")
+        },
+        body: JSON.stringify(datos)
+    });
+
+    const json = await res.json();
+    if (res.ok) {
+        alert("Prueba agregada correctamente");
+        document.getElementById("modalAgregarPrueba").style.display = "none";
+        renderPruebasView(curso);
+    } else {
+        alert(json.error || "Ocurrió un error");
+    }
+
 }

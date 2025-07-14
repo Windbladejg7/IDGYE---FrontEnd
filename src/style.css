@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code&family=Poppins:wght@400;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
 /* Reset básico */
 /* Reset básico */
@@ -9,37 +11,55 @@
   box-sizing: border-box;
 }
 
-html,
-body {
-  height: 100%;
-  background-color: #f9f9f9;
-  color: #212529;
+#app {
+  height: 100vh;
 }
 
 #tabs {
-  height: 50px;
-  color: white;
   display: flex;
-  align-items: center;
-  padding: 0 20px;
-  font-size: 1.25rem;
+  width: 100%;
+  flex-direction: row;
+  background: linear-gradient(120deg, #1f1c2c, #928dab);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
   font-weight: 600;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  border-radius: 8px 8px 0 0;
-  user-select: none;
-  overflow: hidden;
-  opacity: 0.5;
-  white-space: nowrap;
+  justify-content: space-between;
 }
 
-main {
+#tabs ul{
+  margin-left: 10px;
+  align-items: center;
   display: flex;
-  height: 100vh;
+  flex-direction: row;
+}
+
+#tabs li{
+  display: flex;
+  align-items: center;
+  height: 80%;
+  padding: 10px;
+  border-right: 1px solid white;
+}
+
+#tabs a{
+  text-decoration: none;
+  color: white;
+}
+
+#usuario{
+  color: white;
+  padding: 10px;
+  margin-right: 20px;
 }
 
 /*CSS DEL HOME*/
 #outer {
   display: flex;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  margin: 10px;
   justify-content: center;
   padding: 1rem;
 }
@@ -60,27 +80,20 @@ main {
 
 #filtroEstado {
   flex: 1;
-  background-color: #f4f4f4;
   border-left: 1px solid #ccc;
   padding: 1rem;
 }
 
 /* Header */
 #pruebasHeader {
-  background-color: #222;
-  color: white;
+  margin: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   padding: 1rem 2rem;
   font-size: 1.5rem;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins';
 }
 
-.pendiente {
-  border-left: 5px solid #f39c12;
-}
 
-.entregada {
-  border-left: 5px solid #27ae60;
-}
 
 /*-------------------------------------------------------------------------------------*/
 
@@ -90,8 +103,7 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #4f46e5, #3b82f6);
-  color: white;
+  background: linear-gradient(120deg, #ffffff, #928dab);
   font-family: 'Poppins', sans-serif;
 }
 
@@ -145,6 +157,7 @@ main {
 }
 
 #headerEditor {
+  padding-top: 10px;
   height: 45px;
   background-color: white;
   color: black;
@@ -177,6 +190,7 @@ main {
 /* Barra superior */
 #topBar {
   height: 45px;
+  justify-content: space-between;
   background-color: #292b2f;
   border-bottom: 1px solid #444;
   color: #ddd;
@@ -412,20 +426,19 @@ ul {
 }
 
 .btnBloqueado {
-  cursor:not-allowed;
-  background-color:gray;
+  cursor: not-allowed;
+  background-color: gray;
   color: white;
 }
 
 /*--------------------------------------------------------------------------------------------------*/
 
 #cursosHeader {
-  background-color: #222;
-  color: white;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  margin: 10px;
   padding: 1rem 2rem;
   font-size: 1.5rem;
   font-family: 'Poppins', sans-serif;
-  border-bottom: 1px solid #333;
 }
 
 #mainCursos {
@@ -445,7 +458,7 @@ ul {
 .curso-card {
   background-color: #fff;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
   text-align: center;
   font-family: 'Poppins', sans-serif;
@@ -458,7 +471,7 @@ ul {
 
 .curso-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   background-color: #f5f5f5;
 }
 
@@ -478,9 +491,9 @@ ul {
   gap: 2rem;
 }
 
-.grupoPrueba > h2 {
+.grupoPrueba>h2 {
+  color: #ec5d8d;
   margin-bottom: 0.5rem;
-  color: #555;
   border-bottom: 1px solid #ccc;
 }
 
@@ -489,20 +502,29 @@ ul {
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  border: 1px solid #ddd;
   border-radius: 8px;
-  background-color: #fff;
+  margin-bottom: 2px;
   transition: box-shadow 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(10px);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .prueba-box:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  background-color: #f5f5f5;
+  cursor: pointer;
 }
+
 
 .info-prueba p {
   margin: 0;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
   font-size: 1rem;
-  color: #333;
   font-weight: 500;
   font-family: 'Poppins', sans-serif;
 }
@@ -522,18 +544,18 @@ ul {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  background-color: #4f46e5;
+  background-color: #ec5d8d;
   color: white;
   transition: background-color 0.3s ease;
   font-family: 'Poppins', sans-serif;
 }
 
 .botones-prueba button:hover {
-  background-color: #4338ca;
+  background-color: #be2759;
 }
 
 #menuAgregar {
-  background-color: #f9f9f9;
+  background: linear-gradient(120deg, #ffffff, #d6d3d3);
   padding: 1rem 2rem;
   display: flex;
   justify-content: flex-end;
@@ -541,8 +563,9 @@ ul {
 }
 
 #menuAgregar button {
-  background-color: #4f46e5;
-  color: white;
+  background-color: white;
+  color: black;
+  font-weight: bold;
   border: none;
   padding: 0.7rem 1.2rem;
   font-size: 1rem;
@@ -554,10 +577,13 @@ ul {
 
 #menuAgregar button:hover {
   background-color: #4338ca;
+  color: white;
 }
 
 #mainPruebasCurso {
   display: flex;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  margin: 10px;
   justify-content: center;
   padding: 2rem;
 }
@@ -568,18 +594,23 @@ ul {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  
+  padding: 20px 40px;
+  border-radius: 20px;
 }
 
 /*-----------------------------------------------------------------------------------------------------------*/
 .modal {
   position: fixed;
   z-index: 999;
-  left: 0; top: 0;
-  width: 100%; height: 100%;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
   display: none;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0,0,0,0.6);
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .modal-content {
@@ -590,7 +621,7 @@ ul {
   max-width: 500px;
   width: 90%;
   font-family: 'Poppins', sans-serif;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .modal-content h2 {
@@ -638,4 +669,97 @@ ul {
   font-size: 24px;
   cursor: pointer;
   font-weight: bold;
+}
+
+/*------------------------------------------------------------------------------------------------------------*/
+#info {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 2rem;
+  gap: 2rem;
+}
+
+/* Tarjeta de prueba */
+#seccionPrueba {
+  flex: 1;
+  min-width: 300px;
+  background: rgba(240, 238, 238, 0.07);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Gráfico */
+#graficoContainer {
+
+  color: white;
+  justify-content: center;
+  height: 300px;
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Títulos */
+#seccionPrueba h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+#seccionPrueba p {
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+  color: #1f1c2c;
+}
+
+#descripcion {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #1f1c2c;
+}
+
+/* Tabla de entregas */
+#entregasContainer {
+  margin: 2rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  color: #eee;
+}
+
+thead {
+  color: #1f1c2c;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+thead th {
+  text-align: left;
+  padding: 0.75rem;
+  font-weight: 600;
+  border-bottom: 1px solid #444;
+}
+
+tbody td {
+  padding: 0.75rem;
+  color: black;
+  border-bottom: 1px solid #333;
+}
+
+tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.06);
 }

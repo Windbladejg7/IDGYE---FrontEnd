@@ -1,13 +1,10 @@
-import renderInicio from "./inicioView";
+import renderCursosView from "./cursosView";
 
-export default function renderLoginView() {
-  const usuario = document.getElementById("usuario");
-  usuario.textContent = "";
-
+export default function renderAdminLoginView() {
   const app = document.getElementById("app");
   app.innerHTML = `
     <section id="login">
-      <h1>Iniciar sesión</h1>
+      <h1>Panel docente</h1>
       <div id="formLogin">
         <input id="txtEmail" type="email" placeholder="Email" required />
         <input id="txtPassword" type="password" placeholder="Contraseña" required />
@@ -28,7 +25,7 @@ export default function renderLoginView() {
 }
 
 async function login(credenciales) {
-  const response = await fetch("http://localhost:3000/api/auth/login", {
+  const response = await fetch("http://localhost:3000/api/admin/auth/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -40,10 +37,7 @@ async function login(credenciales) {
     const {token} = await response.json();
     localStorage.setItem("token", token);
     console.log(localStorage.getItem("token"));
-    const datosUsuarioResponse = await fetch(`http://localhost:3000/api/estudiantes/${credenciales.email}`);
-    const datosUsuario = await datosUsuarioResponse.json();
-    localStorage.setItem("usuario", datosUsuario.nombre);
     history.pushState(null, "", "/home");
-    await renderInicio();
+    await renderCursosView();
   }
 }
