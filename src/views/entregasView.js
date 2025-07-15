@@ -1,7 +1,21 @@
 import Chart from 'chart.js/auto';
+import renderAdminLoginView from './adminLoginView';
 
 export default async function renderEntregasView(prueba, id_curso) {
+    const usuario = document.getElementById("usuario");
+    usuario.textContent = localStorage.getItem("usuario");
+    document.getElementById("homeTab").href = "/cursos";
+    usuario.style.cursor = "pointer";
+    usuario.addEventListener("click", () => {
+        history.pushState(null, "", "/admin");
+        renderAdminLoginView();
+    });
+
     const app = document.getElementById("app");
+
+    localStorage.setItem("prueba", JSON.stringify(prueba));
+    localStorage.setItem("id_curso", id_curso);
+
     app.innerHTML = `
     <div id="info">
         <section id="seccionPrueba">
@@ -67,7 +81,7 @@ export default async function renderEntregasView(prueba, id_curso) {
             const fila = document.createElement("tr");
 
             const fEntrega = document.createElement("td");
-            
+
             fEntrega.textContent = formatearFecha(entrega.fecha_entrega);
             fila.appendChild(fEntrega);
 
@@ -84,6 +98,13 @@ export default async function renderEntregasView(prueba, id_curso) {
             fila.appendChild(calificacion);
             tabla.appendChild(fila);
         }
+    } else {
+        const fila = document.createElement("tr");
+        const mensaje = document.createElement("td");
+        mensaje.textContent = "No se han realizado entregas todavía"
+        mensaje.colSpan = 4;
+        fila.appendChild(mensaje);
+        tabla.appendChild(fila);
     }
 }
 

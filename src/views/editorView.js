@@ -6,6 +6,13 @@ import renderInicio from "./inicioView.js";
 export default async function renderEditorView(prueba) {
   const usuario = document.getElementById("usuario");
   usuario.textContent = localStorage.getItem("usuario");
+  usuario.style.cursor = "pointer";
+  usuario.addEventListener("click", () => {
+    history.pushState(null, "", "/");
+    renderLoginView();
+  });
+
+  document.getElementById("homeTab").href = "/home";
 
   const app = document.getElementById("app");
   const arbol = await obtenerTree();

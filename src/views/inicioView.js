@@ -1,4 +1,5 @@
 import renderEditorView from "./editorView";
+import renderLoginView from "./loginView";
 
 function devolverHTML() {
     return `
@@ -22,6 +23,13 @@ function devolverHTML() {
 export default async function renderInicio() {
     const usuario = document.getElementById("usuario");
     usuario.textContent = localStorage.getItem("usuario");
+    usuario.style.cursor = "pointer";
+    usuario.addEventListener("click", ()=>{
+        history.pushState(null, "", "/");
+        renderLoginView();
+    });
+
+    document.getElementById("homeTab").href = "/home";
 
     const app = document.getElementById("app");
     app.innerHTML = devolverHTML();
@@ -132,7 +140,7 @@ async function cargarPruebas(pruebas) {
             grupoPruebas.appendChild(pruebaBox);
         }
     } else {
-        pruebasContainer.textContent = "No hay pruebas pendientes"
+        pruebasContainer.textContent = "Sin pruebas";
     }
 }
 

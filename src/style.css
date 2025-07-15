@@ -683,6 +683,7 @@ ul {
 
 /* Tarjeta de prueba */
 #seccionPrueba {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   flex: 1;
   min-width: 300px;
   background: rgba(240, 238, 238, 0.07);
@@ -692,9 +693,13 @@ ul {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
+#seccionPrueba:hover{
+  transform: translateY(-5px);
+}
+
 /* Gráfico */
 #graficoContainer {
-
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   color: white;
   justify-content: center;
   height: 300px;
@@ -703,6 +708,10 @@ ul {
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+#graficoContainer:hover{
+  transform: translateY(-5px);
 }
 
 /* Títulos */
@@ -726,7 +735,7 @@ ul {
 
 /* Tabla de entregas */
 #entregasContainer {
-  margin: 2rem;
+  margin: 10px 2rem;
   padding: 1.5rem;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(8px);
@@ -761,5 +770,5 @@ tbody td {
 }
 
 tbody tr:hover {
-  background-color: rgba(255, 255, 255, 0.06);
+  background-color:#e7f1f7f5;;
 }

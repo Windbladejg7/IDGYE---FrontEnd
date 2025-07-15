@@ -1,6 +1,17 @@
 import renderEntregasView from "./entregasView";
+import renderAdminLoginView from "./adminLoginView";
 
 export default async function renderPruebasView(curso) {
+    const usuario = document.getElementById("usuario");
+    usuario.textContent = localStorage.getItem("usuario");
+    document.getElementById("homeTab").href = "/cursos";
+    usuario.style.cursor = "pointer";
+    usuario.addEventListener("click", () => {
+        history.pushState(null, "", "/admin");
+        renderAdminLoginView();
+    });
+
+
     const app = document.getElementById("app");
 
     localStorage.setItem("curso", JSON.stringify(curso));
@@ -95,7 +106,10 @@ export default async function renderPruebasView(curso) {
             const pruebaBox = document.createElement("div");
             pruebaBox.classList.add("prueba-box");
 
-            pruebaBox.addEventListener("click", async()=>await renderEntregasView(prueba, curso.id_curso));
+            pruebaBox.addEventListener("click", async () => {
+                history.pushState(null, "", "/entregas");
+                await renderEntregasView(prueba, curso.id_curso)
+            });
 
             const infoPrueba = document.createElement("div");
             infoPrueba.classList.add("info-prueba");
@@ -125,6 +139,8 @@ export default async function renderPruebasView(curso) {
 
             grupoPruebas.appendChild(pruebaBox);
         }
+    } else {
+        pruebasContainer.textContent = "No hay pruebas para este curso";
     }
 }
 
@@ -145,7 +161,7 @@ async function formularioHandler(curso) {
         fecha_max: document.getElementById("fecha_max").value,
         hora_max: document.getElementById("hora_max").value + ":00",
         curso: curso.id_curso,
-        codigo_pruebas: {pruebas: document.getElementById("pruebas").value}
+        codigo_pruebas: { pruebas: document.getElementById("pruebas").value }
     };
 
     const res = await fetch("http://localhost:3000/api/pruebas", {

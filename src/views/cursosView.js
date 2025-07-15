@@ -1,6 +1,18 @@
 import renderPruebasView from "./pruebasView";
+import renderAdminLoginView from "./adminLoginView";
 
 export default async function renderCursosView() {
+  const usuario = document.getElementById("usuario");
+  usuario.textContent = localStorage.getItem("usuario");
+
+  document.getElementById("homeTab").href = "/cursos";
+  usuario.style.cursor = "pointer";
+  usuario.addEventListener("click", () => {
+    history.pushState(null, "", "/admin");
+    renderAdminLoginView();
+  });
+
+
   const cursos = await obtenerMisCursos();
   const app = document.getElementById("app");
 
@@ -22,6 +34,7 @@ export default async function renderCursosView() {
       card.textContent = curso.nombre;
 
       card.addEventListener("click", async () => {
+        history.pushState(null, "", "/pruebas");
         await renderPruebasView(curso);
       });
 
