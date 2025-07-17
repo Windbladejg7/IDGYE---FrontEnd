@@ -39,7 +39,7 @@ export default function renderLoginView() {
 
 async function login(credenciales, mensajeError) {
   try {
-    const response = await fetch("http://localhost:3000/api/auth/login", {
+    const response = await fetch("https://idgye.onrender.com/api/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -59,7 +59,7 @@ async function login(credenciales, mensajeError) {
     const { token } = await response.json();
     localStorage.setItem("token", token);
 
-    const datosUsuarioResponse = await fetch(`http://localhost:3000/api/estudiantes/${credenciales.email}`);
+    const datosUsuarioResponse = await fetch(`https://idgye.onrender.com/api/estudiantes/${credenciales.email}`);
     const datosUsuario = await datosUsuarioResponse.json();
     localStorage.setItem("usuario", datosUsuario.nombre);
 

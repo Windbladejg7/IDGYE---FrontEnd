@@ -145,7 +145,7 @@ export default async function renderPruebasView(curso) {
 }
 
 async function cargarPruebas(id_curso) {
-    const response = await fetch(`http://localhost:3000/api/pruebas/${id_curso}`, {
+    const response = await fetch(`https://idgye.onrender.com/api/pruebas/${id_curso}`, {
         headers: {
             "Authorization": localStorage.getItem("token")
         }
@@ -164,7 +164,7 @@ async function formularioHandler(curso) {
         codigo_pruebas: { pruebas: document.getElementById("pruebas").value }
     };
 
-    const res = await fetch("http://localhost:3000/api/pruebas", {
+    const res = await fetch("https://idgye.onrender.com/api/pruebas", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

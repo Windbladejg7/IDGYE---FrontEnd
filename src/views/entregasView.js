@@ -109,13 +109,13 @@ export default async function renderEntregasView(prueba, id_curso) {
 }
 
 async function consultarNumEntregas(id_prueba, id_curso) {
-    const response = await fetch(`http://localhost:3000/api/totales/entregas/${id_prueba}/${id_curso}`);
+    const response = await fetch(`https://idgye.onrender.com/api/totales/entregas/${id_prueba}/${id_curso}`);
     const obj = await response.json();
     return obj.total_entregas;
 }
 
 async function consultarNumEstudiantes(id_curso) {
-    const response = await fetch(`http://localhost:3000/api/totales/estudiantes/${id_curso}`);
+    const response = await fetch(`https://idgye.onrender.com/api/totales/estudiantes/${id_curso}`);
     const obj = await response.json();
     return obj.total_estudiantes;
 }
@@ -140,7 +140,7 @@ function formatearFechaYHora(fecha, hora) {
 }
 
 async function obtenerEntregas(id_prueba, id_curso) {
-    const response = await fetch(`http://localhost:3000/api/entregas/${id_prueba}/${id_curso}`, {
+    const response = await fetch(`https://idgye.onrender.com/api/entregas/${id_prueba}/${id_curso}`, {
         headers: {
             "Authorization": localStorage.getItem("token")
         }

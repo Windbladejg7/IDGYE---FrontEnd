@@ -46,7 +46,7 @@ export default async function renderCursosView() {
 }
 
 async function obtenerMisCursos() {
-  const response = await fetch("http://localhost:3000/api/cursos", {
+  const response = await fetch("https://idgye.onrender.com/cursos", {
     headers: {
       Authorization: localStorage.getItem("token"),
     },

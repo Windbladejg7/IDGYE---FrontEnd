@@ -84,7 +84,7 @@ export default async function renderEditorView(prueba) {
       btnEnviar.classList.add("btnActivo");
 
       btnEnviar.addEventListener("click", async () => {
-        const response = await fetch(`http://localhost:3000/api/entregas/enviar`, {
+        const response = await fetch(`https://idgye.onrender.com/api/entregas/enviar`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -230,7 +230,7 @@ export default async function renderEditorView(prueba) {
   //Pestaña descripcion
   tabDescripcion.addEventListener("click", async () => {
     console.log(prueba.id_prueba);
-    const response = await fetch(`http://localhost:3000/api/pruebas/prueba/${prueba.id_prueba}`);
+    const response = await fetch(`https://idgye.onrender.com/api/pruebas/prueba/${prueba.id_prueba}`);
     const result = await response.json();
     explorer.innerHTML = "";
     explorer.textContent = result.descripcion;
@@ -282,7 +282,7 @@ export default async function renderEditorView(prueba) {
 }
 
 async function obtenerEntrega(id_prueba) {
-  const response = await fetch(`http://localhost:3000/api/entregas/${id_prueba}`, {
+  const response = await fetch(`https://idgye.onrender.com/api/entregas/${id_prueba}`, {
     headers: {
       "Authorization": localStorage.getItem("token")
     }

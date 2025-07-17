@@ -42,14 +42,14 @@ export default async function renderInicio() {
         if (estado === "todas") {
             pruebas = await obtenerPruebas();
         } else if (estado !== "Atrasada") {
-            const response = await fetch(`http://localhost:3000/api/pruebas?estado=${estado}`, {
+            const response = await fetch(`https://idgye.onrender.com/api/pruebas?estado=${estado}`, {
                 headers: {
                     "Authorization": localStorage.getItem("token")
                 }
             });
             pruebas = await response.json();
         } else {
-            const response = await fetch(`http://localhost:3000/api/pruebas?atrasadas=true`, {
+            const response = await fetch(`https://idgye.onrender.com/api/pruebas?atrasadas=true`, {
                 headers: {
                     "Authorization": localStorage.getItem("token")
                 }
@@ -145,7 +145,7 @@ async function cargarPruebas(pruebas) {
 }
 
 async function obtenerPruebas() {
-    const response = await fetch("http://localhost:3000/api/pruebas", {
+    const response = await fetch("https://idgye.onrender.com/api/pruebas", {
         headers: {
             "Content-Type": "application/json",
             "Authorization": localStorage.getItem("token")
