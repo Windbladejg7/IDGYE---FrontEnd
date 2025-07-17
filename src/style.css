@@ -302,6 +302,7 @@ main {
 
 /* Panel de contenido */
 #explorer {
+  white-space:pre-wrap;
   background-color: #1e1e1e;
   color: #eee;
   padding: 1rem;
