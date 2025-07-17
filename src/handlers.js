@@ -1,6 +1,6 @@
 export async function run(code, language) {
     console.log(language);
-    const response = await fetch("http://localhost:3000/api/judge", {
+    const response = await fetch("https://idgye.onrender.com/api/judge", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
