@@ -14,7 +14,7 @@ export async function router(pathname) {
     "/": renderLoginView,
     "/home": renderInicio,
     "/cursos": renderCursosView,
-    "/admin": renderAdminLoginView,
+    "/adminLogin": renderAdminLoginView,
     "/entregas": async()=> await renderEntregasView(JSON.parse(localStorage.getItem("prueba")), localStorage.getItem("id_curso")),
     "/editor": async ()=> await renderEditorView(JSON.parse(localStorage.getItem("prueba"))),
     "/pruebas": async ()=> await renderPruebasView(JSON.parse(localStorage.getItem("curso")))
